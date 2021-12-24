@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="theme-color" content="#6DB0FA" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <title>易广金</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .title-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #6cb0fb;
+        color: #fff;
+        padding: 10px 5px;
+      }
+      .title-bar .title-text {
+        flex: 1;
+        padding-left: 16px;
+      }
+      .title-bar .title-icon {
+        width: 26px;
+        height: 26px;
+      }
+      .icon-box {
+        padding: 3%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20%;
+        grid-template-rows: auto auto auto;
+        grid-gap: 10% 5%;
+      }
+      .icon-box .icon {
+        width: 100%;
+      }
+      .icon-box .icon img {
+        width: 100%;
+      }
+      .icon-box .icon .label {
+        text-align: center;
+      }
+      .icon-box .icon:active .label{
+        color: #0062cc;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="title-bar">
+        <img class="title-icon" src="images/fake/return.png" />
+        <span class="title-text">易广金-学生端</span>
+        <img class="title-icon" src="images/fake/more.png" />
+      </div>
+    </header>
+    <main>
+      <div class="icon-box"></div>
+    </main>
+    <script>
+      var baseUrl = './images/fake/';
+      var btns = [
+        { img: 'a.png', label: '请假助手' },
+        { img: 'b.png', label: '查违纪' },
+        { img: 'c.png', label: '新生助手' },
+        { img: 'd.png', label: '教务系统' },
+        { img: 'e.png', label: '社团服务' },
+        { img: 'f.png', label: '健康打卡' },
+        { img: 'g.png', label: '返校申请' },
+        { img: 'h.png', label: '出校申报' , id: 'requestOut'},
+        { img: 'i.png', label: '寻物招领' },
+        { img: 'j.png', label: '学子之声' },
+        { img: 'k.png', label: '空教室查询' }
+      ];
+      var iconBox = document.querySelector('.icon-box');
+      for (var key in btns) {
+        var btnInfo = btns[key];
+        // 图标容器
+        var div = document.createElement('div');
+        div.className = 'icon';
+        // 图标
+        var img = document.createElement('img');
+        img.src = baseUrl + btnInfo.img;
+
+        var label = document.createElement('div');
+        label.innerHTML = btnInfo.label;
+        label.className = 'label';
+
+        div.appendChild(img);
+        div.appendChild(label);
+        div.addEventListener('click', (function (id) {
+          return function () {
+            onClickIcon(id)
+          }
+        })(btnInfo.id));
+        iconBox.appendChild(div);
+      }
+
+      function onClickIcon (id) {
+        switch (id) {
+          case 'requestOut':
+            location.href = './requestRecord.html' + location.search;
+            break;
+          default:
+        }
+      }
+    </script>
+  </body>
+</html>

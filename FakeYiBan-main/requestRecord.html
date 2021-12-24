@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="theme-color" content="#6DB0FA" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <title>出校申报</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .title-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #6cb0fb;
+        color: #fff;
+        padding: 10px 5px;
+      }
+      .title-bar .title-text {
+        flex: 1;
+        padding-left: 16px;
+      }
+      .title-bar .title-icon {
+        width: 26px;
+        height: 26px;
+      }
+      .record-list {
+        padding: 5%;
+      }
+      .record-card {
+        box-shadow: 0px 1px 5px 0px #a4a0a0;
+        margin-bottom: 3%;
+      }
+      .record-header {
+        padding: 3% 4%;
+        font-weight: 700;
+        font-size: small;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .record-body {
+        padding: 3% 4%;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .record-footer {
+        padding: 3% 4%;
+        font-size: smaller;
+        color: #367cc8;
+      }
+      .item-label {
+        text-align-last: justify;
+        text-align: justify;
+      }
+      .data-label::before {
+        content: '：';
+        display: inline-block;
+      }
+      .item-label, .data-label {
+        font-size: smaller;
+      }
+      .data-label.status {
+        color: #189d18;
+      }
+    </style>
+  </head>
+</head>
+<body>
+  <header>
+    <div class="title-bar">
+      <a class="return">
+        <img class="title-icon" src="./images/fake/return.png" />
+      </a>
+      <span class="title-text">出校申报</span>
+      <a class="return">
+        <img class="title-icon" src="./images/fake/close.png" />
+      </a>
+      <img class="title-icon" src="./images/fake/more.png" />
+    </div>
+  </header>
+  <main>
+    <div class="record-list">
+      <div class="record-card">
+        <div class="record-header" id="requestId1">
+        </div>
+        <div class="record-body">
+          <table>
+            <tr>
+              <td class="item-label">姓名</td>
+              <td class="data-label name"></td>
+            </tr>
+            <tr>
+              <td class="item-label">学号</td>
+              <td class="data-label id"></td>
+            </tr>
+            <tr>
+              <td class="item-label">开始时间</td>
+              <td class="data-label startTime"></td>
+            </tr>
+            <tr>
+              <td class="item-label">结束时间</td>
+              <td class="data-label endTime"></td>
+            </tr>
+            <tr>
+              <td class="item-label">外出类型</td>
+              <td class="data-label type">出校超时（申请进校）</td>
+            </tr>
+            <tr>
+              <td class="item-label">涉及天数</td>
+              <td class="data-label time">1天</td>
+            </tr>
+            <tr>
+              <td class="item-label">状态</td>
+              <td class="data-label status">审批通过</td>
+            </tr>
+            <tr>
+              <td class="item-label">提交时间</td>
+              <td class="data-label submitTime1">2021-10-21 18:24:15</td>
+            </tr>
+          </table>
+        </div>
+        <div class="record-footer">
+          <a id="in">详情</a>
+        </div>
+      </div>
+      <div class="record-card">
+        <div class="record-header" id="requestId2">
+        </div>
+        <div class="record-body">
+          <table>
+            <tr>
+              <td class="item-label">姓名</td>
+              <td class="data-label name"></td>
+            </tr>
+            <tr>
+              <td class="item-label">学号</td>
+              <td class="data-label id"></td>
+            </tr>
+            <tr>
+              <td class="item-label">开始时间</td>
+              <td class="data-label startTime"></td>
+            </tr>
+            <tr>
+              <td class="item-label">结束时间</td>
+              <td class="data-label endTime"></td>
+            </tr>
+            <tr>
+              <td class="item-label">外出类型</td>
+              <td class="data-label type">临时出校（一天仅一次）</td>
+            </tr>
+            <tr>
+              <td class="item-label">涉及天数</td>
+              <td class="data-label time">1天</td>
+            </tr>
+            <tr>
+              <td class="item-label">状态</td>
+              <td class="data-label status">审批通过</td>
+            </tr>
+            <tr>
+              <td class="item-label">提交时间</td>
+              <td class="data-label submitTime2">2021-10-21 18:24:15</td>
+            </tr>
+          </table>
+        </div>
+        <div class="record-footer">
+          <a id="out">详情</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="./mui.min.js"></script>
+  <script src="./jquery.min.js"></script>
+  <script src="./common.js"></script>
+  <script>
+    var now = new Date();
+    var halfHoursAgo = new Date(now.getTime() -  1814000);
+    var oneHoursAgo = new Date(now.getTime() -  3645000);
+    function generateRequestNumber () {
+      var requestNumber = '';
+      var random = Math.floor(Math.random() * 30000);
+      requestNumber += now.Format('yyyyMMdd');
+      requestNumber += random;
+      return requestNumber;
+    }
+    function getParam(key) {
+      var url = location.search; //获取url中"?"符后的字串
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i in strs) {
+          var pair = strs[i].split("=");
+          if (pair[0] === key) {
+            return decodeURI(pair[1]);
+          }
+        }
+        return null;
+      }
+    }
+    var studentName = getParam('studentName');
+    var studentId = getParam('studentId');
+    $('#requestId1').html('申请编号：'+generateRequestNumber())
+    $('#requestId2').html('申请编号：'+generateRequestNumber())
+    $('.data-label.name').html(studentName)
+    $('.data-label.id').html(studentId)
+    $('.data-label.startTime').html(now.Format('yyyy-MM-dd'))
+    $('.data-label.endTime').html(now.Format('yyyy-MM-dd'))
+    $('.data-label.submitTime1').html(halfHoursAgo.Format('yyyy-MM-dd hh:mm:ss'))
+    $('.data-label.submitTime2').html(oneHoursAgo.Format('yyyy-MM-dd hh:mm:ss'))
+
+    $('#in').on('click', function () {
+      location.href = `./in.html?studentId=${studentId}&studentName=${studentName}`;
+    })
+    $('#out').on('click', function () {
+      location.href = `./out.html?studentId=${studentId}&studentName=${studentName}`;
+    })
+    $('.return').on('click', function () {
+      location.href = `./index.html${location.search}`;
+    })
+  </script>
+</body>
+</html>
